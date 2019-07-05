@@ -10,13 +10,16 @@
         rel="noopener"
       >vue-cli documentation</a>.
     </p>
-    <h3>{{ computedSelect || 'null' }}</h3>
+    <h3>{{ title }}</h3>
     <ul>
       <li>
-        <a href="#" @click="setSelect('A')">A Click</a>
+        <a @click="handleClick('A')">A Click</a>
       </li>
       <li>
-        <a href="#" @click="setSelect('B')">B Click</a>
+        <a @click="handleClick('B')">B Click</a>
+      </li>
+      <li>
+        <a @click="$emit('page-click')">Go to {{goToPageName}} Page !</a>
       </li>
     </ul>
   </div>
@@ -24,43 +27,18 @@
 
 <script>
 // import { mapState } from "vuex";
-import helloWorldStore from "../store/helloWorld";
 
 export default {
   name: "HelloWorld",
   props: {
-    msg: String
-  },
-
-  // mapState or this.$store.getters
-  // computed: mapState({
-  //   computedSelect: state => state.sample.select
-  // }),
-
-  computed: {
-    computedSelect() {
-      return this.$store.getters["helloWorld/select"];
-    }
-  },
-
-  watch: {
-    computedSelect(newValue, oldValue) {
-      console.log({ newValue, oldValue });
-    }
-  },
-
-  beforeCreate() {
-    if (!this.$store.state.sample) {
-      Promise.all([
-        this.$store.registerModule("helloWorld", helloWorldStore),
-        this.$store.dispatch("helloWorld/initialize")
-      ]);
-    }
+    msg: String,
+    title: String,
+    goToPageName: String
   },
 
   methods: {
-    setSelect(param) {
-      this.$store.dispatch("helloWorld/refreshSelect", param);
+    handleClick(param) {
+      this.$emit("click", param);
     }
   }
 };
