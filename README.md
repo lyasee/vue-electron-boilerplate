@@ -1,6 +1,6 @@
-# vue-electron-boilerplate
+# vue-electron-sample
 
-Vue electron boilerplate
+Vue electron sample
 
 Dev
 
